@@ -19,10 +19,10 @@ public interface WordDao {
     @Query("DELETE FROM word_table")
     void deleteAll();
 
-    @Query("SELECT * FROM word_table ORDER BY status DESC, category_id ASC, word ASC")
+    @Query("SELECT * FROM word_table ORDER BY status DESC, category_id ASC, word COLLATE NOCASE ASC")
     LiveData<List<Word>> getAllWordsByCategory();
 
-    @Query("SELECT * FROM word_table ORDER BY status DESC, word ASC")
+    @Query("SELECT * FROM word_table ORDER BY status DESC, word COLLATE NOCASE ASC")
     LiveData<List<Word>> getAllWordsByItem();
 
 }
