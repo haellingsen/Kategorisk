@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RoomWordSample</string>
+    <string name="app_name">Kategorisk</string>
     <string name="action_settings">Settings</string>
     <string name="action_sort_by_category">Sort by category</string>
     <string name="action_sort_by_item">Sort by item</string>

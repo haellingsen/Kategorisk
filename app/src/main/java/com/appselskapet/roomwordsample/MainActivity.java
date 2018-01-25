@@ -25,8 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private WordViewModel mWordViewModel;
     WordListAdapter adapter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
