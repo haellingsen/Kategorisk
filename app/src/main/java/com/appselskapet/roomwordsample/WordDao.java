@@ -20,11 +20,12 @@ public interface WordDao {
     @Query("DELETE FROM word_table")
     void deleteAll();
 
-    @Query("SELECT * FROM word_table ORDER BY status DESC, category_id ASC, word COLLATE NOCASE ASC")
+    @Query("SELECT * FROM word_table ORDER BY status ASC, category_id ASC, word COLLATE NOCASE ASC")
     LiveData<List<Word>> getAllWordsByCategory();
 
-    @Query("SELECT * FROM word_table ORDER BY status DESC, word COLLATE NOCASE ASC")
+    @Query("SELECT * FROM word_table ORDER BY status ASC, word COLLATE NOCASE ASC, category_id")
     LiveData<List<Word>> getAllWordsByItem();
 
-    //todo make update statement for updating status of the item
+    @Update
+    void update(Word word);
 }

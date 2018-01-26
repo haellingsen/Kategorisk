@@ -16,55 +16,13 @@ import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
-        private final TextView wordItemView;
-        private final TextView categoryItemView;
-        private final TextView statusItemView;
-
-        private WordViewHolder(View itemView) {
-            super(itemView);
-            wordItemView = itemView.findViewById(R.id.textview_word);
-            categoryItemView = itemView.findViewById(R.id.textview_category);
-            statusItemView = itemView.findViewById(R.id.textview_status);
-            itemView.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mWords != null) {
-                Word current = mWords.get(getAdapterPosition());
-                current.toggleDone();
-                Toast.makeText(v.getContext(),
-                        "onClick:\nposition = " + getAdapterPosition()
-                        + "\nitemid = " + current.getId()
-                        + "\nname = " + current.getWord()
-                        + "\nstatus = " + current.getStatus()
-                        , Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            if (mWords != null) {
-                Word current = mWords.get(getAdapterPosition());
-                current.toggleDone();
-                Toast.makeText(v.getContext(),
-                        "onLongClick:\nposition = " + getAdapterPosition()
-                                + "\nitemid = " + current.getId()
-                                + "\nname = " + current.getWord()
-                                + "\nstatus = " + current.getStatus()
-                        , Toast.LENGTH_SHORT).show();
-                notifyDataSetChanged();
-            }
-        return false;}
-    }
-
     private final LayoutInflater mInflater;
     private List<Word> mWords; // Cached copy of words
+    private WordViewModel mWordViewModel;
 
-    WordListAdapter(Context context) {mInflater = LayoutInflater.from(context);}
+    WordListAdapter(Context context, WordViewModel mWordViewModel) {mInflater = LayoutInflater.from(context);
+        this.mWordViewModel = mWordViewModel;
+    }
 
     @Override
     public WordViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -98,5 +56,51 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         if (mWords != null)
             return mWords.size();
         else return 0;
+    }
+
+    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
+        private final TextView wordItemView;
+        private final TextView categoryItemView;
+        private final TextView statusItemView;
+
+        private WordViewHolder(View itemView) {
+            super(itemView);
+            wordItemView = itemView.findViewById(R.id.textview_word);
+            categoryItemView = itemView.findViewById(R.id.textview_category);
+            statusItemView = itemView.findViewById(R.id.textview_status);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mWords != null) {
+                Word current = mWords.get(getAdapterPosition());
+                current.toggleDone();
+                Toast.makeText(v.getContext(),
+                        "onClick:\nposition = " + getAdapterPosition()
+                        + "\nitemid = " + current.getId()
+                        + "\nname = " + current.getWord()
+                        + "\nstatus = " + current.getStatus()
+                        , Toast.LENGTH_SHORT).show();
+                mWordViewModel.update(current);
+                notifyDataSetChanged();
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mWords != null) {
+                Word current = mWords.get(getAdapterPosition());
+                current.toggleDone();
+                Toast.makeText(v.getContext(),
+                        "onLongClick:\nposition = " + getAdapterPosition()
+                                + "\nitemid = " + current.getId()
+                                + "\nname = " + current.getWord()
+                                + "\nstatus = " + current.getStatus()
+                        , Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        return false;}
     }
 }

@@ -43,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        adapter = new WordListAdapter(this);
+        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
+        adapter = new WordListAdapter(this, mWordViewModel);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        mWordViewModel = ViewModelProviders.of(this).get(WordViewModel.class);
 
         mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
             @Override
