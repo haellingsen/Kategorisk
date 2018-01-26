@@ -40,4 +40,11 @@ public class Word {
     public int getCategoryId() {return this.mCategoryId;}
     public int getStatus() {return this.mStatus;}
 
+    public void toggleDone() {
+        if (this.mStatus == 0) {
+            this.mStatus = 1;
+        } else if (this.mStatus == 1) {
+            this.mStatus = 0;
+        }
+    }
 }

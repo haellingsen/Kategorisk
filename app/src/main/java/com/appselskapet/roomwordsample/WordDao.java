@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -25,4 +26,5 @@ public interface WordDao {
     @Query("SELECT * FROM word_table ORDER BY status DESC, word COLLATE NOCASE ASC")
     LiveData<List<Word>> getAllWordsByItem();
 
+    //todo make update statement for updating status of the item
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordViewHolder> {
 
-    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class WordViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
         private final TextView wordItemView;
         private final TextView categoryItemView;
         private final TextView statusItemView;
@@ -27,12 +27,38 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
             categoryItemView = itemView.findViewById(R.id.textview_category);
             statusItemView = itemView.findViewById(R.id.textview_status);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), "position = " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+            if (mWords != null) {
+                Word current = mWords.get(getAdapterPosition());
+                current.toggleDone();
+                Toast.makeText(v.getContext(),
+                        "onClick:\nposition = " + getAdapterPosition()
+                        + "\nitemid = " + current.getId()
+                        + "\nname = " + current.getWord()
+                        + "\nstatus = " + current.getStatus()
+                        , Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
         }
+
+        @Override
+        public boolean onLongClick(View v) {
+            if (mWords != null) {
+                Word current = mWords.get(getAdapterPosition());
+                current.toggleDone();
+                Toast.makeText(v.getContext(),
+                        "onLongClick:\nposition = " + getAdapterPosition()
+                                + "\nitemid = " + current.getId()
+                                + "\nname = " + current.getWord()
+                                + "\nstatus = " + current.getStatus()
+                        , Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        return false;}
     }
 
     private final LayoutInflater mInflater;
